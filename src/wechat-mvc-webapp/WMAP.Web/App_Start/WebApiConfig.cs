@@ -25,6 +25,16 @@ namespace WMAP.Web
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            // Wechat API routes
+            // AppID is 
+
+            config.Routes.MapHttpRoute(
+                name: @"WechatAPI",
+                routeTemplate: @"wechat/{AppID}",
+                defaults: new { controller = "WechatDispatcher", AppID = RouteParameter.Optional }
+            );
+
         }
     }
 }

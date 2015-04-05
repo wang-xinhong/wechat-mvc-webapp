@@ -237,6 +237,16 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WMAP.Common\WMAP.Common.csproj">
+      <Project>{6d173d46-5728-49fd-9759-9c2cf7cc0687}</Project>
+      <Name>WMAP.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WMAP.Interfaces\WMAP.Interfaces.csproj">
+      <Project>{2bcc6bac-644c-437e-acb7-f1dcc71bb949}</Project>
+      <Name>WMAP.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

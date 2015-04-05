@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="Default Web Site/wechatapp" />
+  <setParameter name="DefaultConnection-Web.config Connection String" value="Data Source=(LocalDB)\v11.0;AttachDbFilename=.\WMAP.Web\Wechatapp-Sample.mdf;Persist Security Info=True;User ID=sa;Password=as;Connect Timeout=30" />
+</parameters>
