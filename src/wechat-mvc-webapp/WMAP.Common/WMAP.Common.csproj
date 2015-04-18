@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,6 +49,7 @@
     <Compile Include="Security\TRijndaelExtender.cs" />
     <Compile Include="Security\SHA1Extender.cs" />
     <Compile Include="SimpleWechatConfig.cs" />
+    <Compile Include="SimpleWechatConfigManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WMAP.Interfaces\WMAP.Interfaces.csproj">
@@ -55,6 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Encoding\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

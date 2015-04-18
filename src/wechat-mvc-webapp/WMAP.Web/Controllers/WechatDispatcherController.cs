@@ -9,6 +9,7 @@ using System.Text;
 using System.Web.Http;
 using System.Web.Mvc;
 using WMAP.Common;
+using WMAP.Interfaces;
 using WMAP.Web.HttpUtil;
 
 namespace WMAP.Web.Controllers
@@ -33,10 +34,9 @@ namespace WMAP.Web.Controllers
         {
             try
             {
-                SimpleWechatConfig config = new SimpleWechatConfig();
+                IWechatConfig config = SimpleWechatConfigManager.GetInstance().FetchSelectedConfig(AppID);
 
                 logger.DebugFormat(@"The get AppID is [{0}], echostr is [{1}]", AppID ?? @"Nu1l", echostr ?? @"Nu1l");
-                Debug.Print(@"The get AppID is [{0}], echostr is [{1}]", AppID ?? @"Nu1l", echostr ?? @"Nu1l");
 
                 //TODO: verify the sign
 
@@ -62,12 +62,11 @@ namespace WMAP.Web.Controllers
         {
             try
             {
-                SimpleWechatConfig config = new SimpleWechatConfig();
+                IWechatConfig config = SimpleWechatConfigManager.GetInstance().FetchSelectedConfig(AppID);
 
                 String request = this.Request.Content.ReadAsStringAsync().Result;
 
                 logger.DebugFormat(@"The post AppID is [{0}], request is [{1}]", AppID ?? @"Nu1l", request ?? @"Nu1l");
-                Debug.Print(@"The post AppID is [{0}], request is [{1}]", AppID ?? @"Nu1l", request ?? @"Nu1l");
 
                 //TODO: verify the sign
 
