@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,11 @@ namespace WMAP.Web
     {
         protected void Application_Start()
         {
+            log4net.Config.XmlConfigurator.Configure();
+
+            ILog logger = LogManager.GetLogger(typeof(WebApiApplication));
+            logger.InfoFormat(@"Application [{0}] start!", this.GetType());
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

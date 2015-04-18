@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace WMAP.Common.Consts
 {
     /// <summary>
-    /// BaseT32 Encoding
+    /// BaseT42 Encoding
     /// </summary>
-    public class BaseT32Encoding
+    public class BaseT42Encoding
     {
 
-        public readonly static String[] CodeBaseT32Dictionary = new String[] { @"2", @"3", @"4", @"5", @"6", @"7", @"a", @"c", @"d",
+        public readonly static String[] CodeBaseT42Dictionary = new String[] { @"2", @"3", @"4", @"5", @"6", @"7", @"a", @"c", @"d",
             @"e", @"f", @"h", @"i", @"j", @"k", @"m", @"n", @"p", @"r", @"s", @"t", @"A", @"C", @"D", @"E", @"F", 
             @"G", @"H", @"J", @"K", @"M", @"N", @"P", @"Q", @"R", @"S", @"U", @"V", @"W", @"X", @"Y", @"Z"};
 

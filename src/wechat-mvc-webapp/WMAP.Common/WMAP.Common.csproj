@@ -39,7 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Consts\BaseT32Encoding.cs" />
+    <Compile Include="Consts\BaseT42Encoding.cs" />
     <Compile Include="Consts\MessageCryptErrorCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\RandomCode.cs" />

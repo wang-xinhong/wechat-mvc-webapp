@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -72,5 +73,88 @@ namespace WMAP.Common.Security
             return (char)target;
         }
 
+
+        /// <summary>
+        /// Tencent's Rijndael Encrypt
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="iv"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static String AES_encrypt(this byte[] input, byte[] iv, byte[] key)
+        {
+            using (var aes = new RijndaelManaged() { KeySize = KeySize, BlockSize = BlockSize, Padding = Padding, Mode = CiferMode })
+            {
+                var encrypt = aes.CreateEncryptor(key, iv);
+
+                byte[] xBuff = null;
+
+                #region 自己进行PKCS7补位，用系统自己带的不行
+                byte[] msg = new byte[input.Length + 32 - input.Length % 32];
+                Array.Copy(input, msg, input.Length);
+                byte[] pad = TPKCS7Padding(input.Length);
+                Array.Copy(pad, 0, msg, input.Length, pad.Length);
+                #endregion
+
+                using (var ms = new MemoryStream())
+                {
+                    using (var cs = new CryptoStream(ms, encrypt, CryptoStreamMode.Write))
+                    {
+                        cs.Write(msg, 0, msg.Length);
+                    }
+                    xBuff = ms.ToArray();
+                }
+
+                String Output = Convert.ToBase64String(xBuff);
+                return Output;
+            }
+
+        }
+
+        /// <summary>
+        /// Tencent's Rijndael Decrypt
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="iv"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static byte[] AES_decrypt(this String input, byte[] iv, byte[] key)
+        {
+            using (var aes = new RijndaelManaged() { KeySize = KeySize, BlockSize = BlockSize, Padding = Padding, Mode = CiferMode })
+            {
+                var decrypt = aes.CreateDecryptor(iv, key);
+                byte[] xBuff = null;
+                using (var ms = new MemoryStream())
+                {
+                    using (var cs = new CryptoStream(ms, decrypt, CryptoStreamMode.Write))
+                    {
+                        byte[] xXml = Convert.FromBase64String(input);
+                        byte[] msg = new byte[xXml.Length + 32 - xXml.Length % 32];
+                        Array.Copy(xXml, msg, xXml.Length);
+                        cs.Write(xXml, 0, xXml.Length);
+                    }
+                    xBuff = decode2(ms.ToArray());
+                }
+                return xBuff;
+
+            }
+        }
+
+        /// <summary>
+        /// decode
+        /// </summary>
+        /// <param name="decrypted"></param>
+        /// <returns></returns>
+        private static byte[] decode2(byte[] decrypted)
+        {
+            int pad = (int)decrypted[decrypted.Length - 1];
+            if (pad < 1 || pad > 32)
+            {
+                pad = 0;
+            }
+            byte[] res = new byte[decrypted.Length - pad];
+            Array.Copy(decrypted, 0, res, 0, decrypted.Length - pad);
+            return res;
+        }
     }
 }

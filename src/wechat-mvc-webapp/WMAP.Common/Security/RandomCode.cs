@@ -35,8 +35,8 @@ namespace WMAP.Common.Security
 
             for (int i = 0; i < codeLen; i++)
             {
-                randValue = rand.Next(0, BaseT32Encoding.CodeBaseT32Dictionary.Length - 1);
-                codeBuilder.Append(BaseT32Encoding.CodeBaseT32Dictionary[randValue]);
+                randValue = rand.Next(0, BaseT42Encoding.CodeBaseT42Dictionary.Length - 1);
+                codeBuilder.Append(BaseT42Encoding.CodeBaseT42Dictionary[randValue]);
             }
 
             return codeBuilder.ToString();
