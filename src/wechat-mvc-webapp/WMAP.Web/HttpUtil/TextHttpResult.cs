@@ -9,6 +9,9 @@ using System.Web.Http;
 
 namespace WMAP.Web.HttpUtil
 {
+    /// <summary>
+    /// simple result
+    /// </summary>
     public class TextHttpResult : IHttpActionResult
     {
         string _value;

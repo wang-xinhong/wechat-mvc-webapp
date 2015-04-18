@@ -20,40 +20,65 @@ namespace WMAP.Web.Controllers
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(WechatDispatcherController));
 
-        public ActionResult Get()
-        {
-            return new JsonResult() { Data = 5 };
-        }
-
-        public ActionResult Post()
-        {
-            return new JsonResult() { ContentEncoding = new UTF8Encoding(false), Data = 6 };
-        }
-
+        /// <summary>
+        /// Get Request From Wechat
+        /// </summary>
+        /// <param name="AppID"></param>
+        /// <param name="signature"></param>
+        /// <param name="echostr"></param>
+        /// <param name="timestamp"></param>
+        /// <param name="nonce"></param>
+        /// <returns></returns>
         public IHttpActionResult Get(String AppID, [FromUri] String signature, [FromUri] String echostr, [FromUri] String timestamp, [FromUri]String nonce)
         {
-            SimpleWechatConfig config = new SimpleWechatConfig();
+            try
+            {
+                SimpleWechatConfig config = new SimpleWechatConfig();
 
-            logger.DebugFormat(@"The get AppID is [{0}], echostr is [{1}]", AppID ?? @"Nu1l", echostr ?? @"Nu1l");
-            Debug.Print(@"The get AppID is [{0}], echostr is [{1}]", AppID ?? @"Nu1l", echostr ?? @"Nu1l");
+                logger.DebugFormat(@"The get AppID is [{0}], echostr is [{1}]", AppID ?? @"Nu1l", echostr ?? @"Nu1l");
+                Debug.Print(@"The get AppID is [{0}], echostr is [{1}]", AppID ?? @"Nu1l", echostr ?? @"Nu1l");
 
-            //TODO: verify the sign
+                //TODO: verify the sign
 
-            return new TextHttpResult(echostr, this.Request);
+                return new TextHttpResult(echostr, this.Request);
 
-            
-
-            //return NotFound();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                return BadRequest();
+            }
         }
 
-        public IHttpActionResult Post(String AppID, [FromBody] String request)
+        /// <summary>
+        /// POST Request From Wechat
+        /// </summary>
+        /// <param name="AppID"></param>
+        /// <param name="signature"></param>
+        /// <param name="timestamp"></param>
+        /// <param name="nonce"></param>
+        /// <returns></returns>
+        public IHttpActionResult Post(String AppID, [FromUri] String signature, [FromUri] String timestamp, [FromUri]String nonce)
         {
-            SimpleWechatConfig config = new SimpleWechatConfig();
+            try
+            {
+                SimpleWechatConfig config = new SimpleWechatConfig();
 
-            logger.DebugFormat(@"The post AppID is [{0}], request is [{1}]", AppID ?? @"Nu1l", request ?? @"Nu1l");
-            Debug.Print(@"The post AppID is [{0}], request is [{1}]", AppID ?? @"Nu1l", request ?? @"Nu1l");
+                String request = this.Request.Content.ReadAsStringAsync().Result;
 
-            return NotFound();
+                logger.DebugFormat(@"The post AppID is [{0}], request is [{1}]", AppID ?? @"Nu1l", request ?? @"Nu1l");
+                Debug.Print(@"The post AppID is [{0}], request is [{1}]", AppID ?? @"Nu1l", request ?? @"Nu1l");
+
+                //TODO: verify the sign
+
+                return NotFound();
+
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                return BadRequest();
+            }
         }
     }
 }
