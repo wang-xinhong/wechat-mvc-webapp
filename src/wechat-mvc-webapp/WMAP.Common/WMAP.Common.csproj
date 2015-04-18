@@ -49,7 +49,9 @@
     <Compile Include="Security\TRijndaelExtender.cs" />
     <Compile Include="Security\SHA1Extender.cs" />
     <Compile Include="SimpleWechatConfig.cs" />
-    <Compile Include="SimpleWechatConfigManager.cs" />
+    <Compile Include="SimpleWechatConfigManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WMAP.Interfaces\WMAP.Interfaces.csproj">
