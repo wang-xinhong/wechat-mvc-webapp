@@ -39,14 +39,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Consts\BaseT32Encoding.cs" />
+    <Compile Include="Consts\MessageCryptErrorCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\RandomCode.cs" />
+    <Compile Include="Security\TRijndaelExtender.cs" />
+    <Compile Include="Security\SHA1Extender.cs" />
+    <Compile Include="SimpleWechatConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WMAP.Interfaces\WMAP.Interfaces.csproj">
       <Project>{2bcc6bac-644c-437e-acb7-f1dcc71bb949}</Project>
       <Name>WMAP.Interfaces</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Encoding\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
