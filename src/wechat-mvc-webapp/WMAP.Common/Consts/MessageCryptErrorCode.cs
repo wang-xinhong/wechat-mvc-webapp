@@ -9,7 +9,7 @@ namespace WMAP.Common.Consts
     /// <summary>
     /// 微信消息加解密错误码
     /// </summary>
-    enum MessageCryptErrorCode
+    public enum MessageCryptErrorCode : int
     {
         /// <summary>
         /// OK

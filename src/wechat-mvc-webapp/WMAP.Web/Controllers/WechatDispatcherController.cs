@@ -9,6 +9,8 @@ using System.Text;
 using System.Web.Http;
 using System.Web.Mvc;
 using WMAP.Common;
+using WMAP.Common.Consts;
+using WMAP.Common.Security;
 using WMAP.Interfaces;
 using WMAP.Web.HttpUtil;
 
@@ -51,6 +53,11 @@ namespace WMAP.Web.Controllers
         }
 
         /// <summary>
+        /// 是否强制启用signature验证
+        /// </summary>
+        private const Boolean _FORCE_SIGNATURE_FLAG = false;
+
+        /// <summary>
         /// POST Request From Wechat
         /// </summary>
         /// <param name="AppID"></param>
@@ -68,9 +75,19 @@ namespace WMAP.Web.Controllers
 
                 String request = this.Request.Content.ReadAsStringAsync().Result;
 
-                logger.DebugFormat(@"The post AppID is [{0}], request is [{1}]", AppID ?? @"Nu1l", request ?? @"Nu1l");
+                logger.DebugFormat(@"The post AppID is [{0}], signature is [{2}], timestamp is [{3}], request is [{1}]", AppID ?? @"Nu1l", request ?? @"Nu1l", signature ?? @"Nu1l", timestamp ?? @"Nu1l");
 
-                //TODO: verify the sign
+                if ( ( !String.IsNullOrEmpty(signature)
+                        && !String.IsNullOrEmpty(timestamp)
+                        && !String.IsNullOrEmpty(nonce))
+                    || _FORCE_SIGNATURE_FLAG)
+                {
+                    MessageCryptErrorCode retCode = SignatureVerifier.VerifySignature(config.Token, timestamp, nonce, request, signature);
+
+                    if (retCode != MessageCryptErrorCode.WXMsgCrypt_OK)
+                        throw new ApplicationException(@"verify signature failed");
+                }
+
 
                 return NotFound();
 
