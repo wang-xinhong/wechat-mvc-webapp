@@ -18,14 +18,11 @@ namespace WMAP.Common
 
         private static SimpleWechatConfigManager instance;
 
-        public SimpleWechatConfigManager()
+        public static SimpleWechatConfigManager GetInstance()
         {
             if (instance == null)
                 instance = new SimpleWechatConfigManager();
-        }
 
-        public static SimpleWechatConfigManager GetInstance()
-        {
             return instance;
         }
 

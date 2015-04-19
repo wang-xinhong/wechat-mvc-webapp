@@ -64,6 +64,8 @@ namespace WMAP.Web.Controllers
             {
                 IWechatConfig config = SimpleWechatConfigManager.GetInstance().FetchSelectedConfig(AppID);
 
+                logger.DebugFormat(@"The app [{1}] token is [{0}]", config.Token ?? @"Nu1l", AppID ?? @"Nu1l");
+
                 String request = this.Request.Content.ReadAsStringAsync().Result;
 
                 logger.DebugFormat(@"The post AppID is [{0}], request is [{1}]", AppID ?? @"Nu1l", request ?? @"Nu1l");
